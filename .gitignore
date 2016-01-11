@@ -10,3 +10,8 @@ gen
 local.properties
 adb*.jar
 dependencies
+
+
+.idea/
+*.iml
+
