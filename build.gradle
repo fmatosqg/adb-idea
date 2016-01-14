@@ -1,5 +1,5 @@
 plugins {
-    id "org.jetbrains.intellij" version "0.0.35"
+    id "org.jetbrains.intellij" version "0.0.39"
 }
 
 apply plugin: 'org.jetbrains.intellij'
@@ -17,11 +17,13 @@ sourceSets {
 }
 
 intellij {
-    version 'IC-14.1.5'
+    version 'IC-15.0.1'
     pluginName 'adb_idea'
     plugins 'android'
     updateSinceUntilBuild false
     downloadSources !(System.getenv('CI') ?: 'false')
+
+    plugins 'android'
 
     publish {
         //username ''
@@ -42,5 +44,5 @@ repositories {
 }
 
 dependencies {
-
+    //compile fileTree(dir: 'lib', include: ['*.jar'])
 }

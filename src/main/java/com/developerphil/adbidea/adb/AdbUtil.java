@@ -5,11 +5,12 @@ import com.android.ddmlib.IDevice;
 import com.android.ddmlib.ShellCommandUnresponsiveException;
 import com.android.ddmlib.TimeoutException;
 import com.android.tools.idea.model.ManifestInfo;
-//import com.android.tools.idea.run.activity.DefaultActivityLocator;
+import com.android.tools.idea.run.activity.DefaultActivityLocator;
 import com.developerphil.adbidea.adb.command.receiver.GenericReceiver;
 import org.jetbrains.android.dom.AndroidAttributeValue;
 import org.jetbrains.android.dom.manifest.UsesFeature;
 import org.jetbrains.android.facet.AndroidFacet;
+import org.jetbrains.android.run.DeviceStateAtLaunch;
 import org.jetbrains.android.util.AndroidUtils;
 import org.joor.Reflect;
 import org.joor.ReflectException;
@@ -48,10 +49,13 @@ public class AdbUtil {
     }
 
     public static String getDefaultLauncherActivityName(AndroidFacet facet) {
-//        try {
+        try {
             // Studio 1.5
-            //return DefaultActivityLocator.getDefaultLauncherActivityName(facet.getManifest());
-//        } catch (Error e) {
+            return DefaultActivityLocator.getDefaultLauncherActivityName(facet.getManifest());
+            // download with the script getAndroid()
+//            git://git.jetbrains.org/idea/android.git
+//jar tf out/dist.all.ce/plugins/android/lib/android.jar  | grep DefaultActivityLocator
+        } catch (Error e) {
             try {
                 // Studio 1.4
                 return Reflect.on("org.jetbrains.android.run.DefaultActivityLocator").call("getDefaultLauncherActivityName", facet.getManifest()).get();
@@ -59,17 +63,17 @@ public class AdbUtil {
                 // Studio 1.3 && Intellij 14.1
                 return Reflect.on(AndroidUtils.class).call("getDefaultLauncherActivityName", facet.getManifest()).get();
             }
-//        }
+        }
     }
 
     // compatibility between studio 1.4 and 1.5-Preview1
     public static EnumSet<IDevice.HardwareFeature> getRequiredHardwareFeatures(AndroidFacet facet) {
         try {
-            //if (com.android.tools.idea.run.LaunchUtils.isWatchFeatureRequired(facet)) {
-            //    return EnumSet.of(IDevice.HardwareFeature.WATCH);
-            //} else {
+            if (com.android.tools.idea.run.LaunchUtils.isWatchFeatureRequired(facet)) {
+                return EnumSet.of(IDevice.HardwareFeature.WATCH);
+            } else {
                 return EnumSet.noneOf(IDevice.HardwareFeature.class);
-            //}
+            }
         } catch (Error e) {
             ManifestInfo manifestInfo = ManifestInfo.get(facet.getModule(), true);
             List<UsesFeature> requiredFeatures = Reflect.on(manifestInfo).call("getRequiredFeatures").get();
