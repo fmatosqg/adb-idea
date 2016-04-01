@@ -1,8 +1,9 @@
 plugins {
-    id "org.jetbrains.intellij" version "0.0.39"
+    id "org.jetbrains.intellij" version "0.0.43"
 }
 
-apply plugin: 'org.jetbrains.intellij'
+
+apply plugin: "org.jetbrains.intellij"
 apply plugin: 'java'
 
 sourceCompatibility = 1.6
@@ -17,7 +18,7 @@ sourceSets {
 }
 
 intellij {
-    version 'IC-15.0.1'
+    version 'IC-15.0.5'
     pluginName 'adb_idea'
     plugins 'android'
     updateSinceUntilBuild false
@@ -45,4 +46,8 @@ repositories {
 
 dependencies {
     //compile fileTree(dir: 'lib', include: ['*.jar'])
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.12'
 }

@@ -66,3 +66,9 @@ License
 Build
 =====
 Run <code>./gradlew buildPlugin</code>
+
+Details
+-------
+
+Gradle build will employ the intellij gradle plugin https://github.com/JetBrains/gradle-intellij-plugin.
+This plugin will attempt to download a full binary of the intellij idea in order to build its plugin against it.
