@@ -5,6 +5,7 @@ import com.android.ddmlib.IDevice;
 import com.android.ddmlib.ShellCommandUnresponsiveException;
 import com.android.ddmlib.TimeoutException;
 import com.android.tools.idea.model.ManifestInfo;
+import com.android.tools.idea.run.activity.DefaultActivityLocator;
 import com.developerphil.adbidea.adb.command.receiver.GenericReceiver;
 import org.jetbrains.android.dom.AndroidAttributeValue;
 import org.jetbrains.android.dom.manifest.UsesFeature;
@@ -48,21 +49,32 @@ public class AdbUtil {
 
     public static String getDefaultLauncherActivityName(AndroidFacet facet) {
         try {
-            // Studio 1.4
-            return Reflect.on("org.jetbrains.android.run.DefaultActivityLocator").call("getDefaultLauncherActivityName", facet.getManifest()).get();
-        } catch (ReflectException exception) {
-            // Studio 1.3 && Intellij 14.1
-            return Reflect.on(AndroidUtils.class).call("getDefaultLauncherActivityName", facet.getManifest()).get();
+            // Studio 1.5
+            return DefaultActivityLocator.getDefaultLauncherActivityName(facet.getManifest());
+        } catch (Error e) {
+            try {
+                // Studio 1.4
+                return Reflect.on("org.jetbrains.android.run.DefaultActivityLocator").call("getDefaultLauncherActivityName", facet.getManifest()).get();
+            } catch (ReflectException exception) {
+                // Studio 1.3 && Intellij 14.1
+                return Reflect.on(AndroidUtils.class).call("getDefaultLauncherActivityName", facet.getManifest()).get();
+            }
         }
     }
 
     // compatibility between studio 1.4 and 1.5-Preview1
     public static EnumSet<IDevice.HardwareFeature> getRequiredHardwareFeatures(AndroidFacet facet) {
-
+        try {
+            if (com.android.tools.idea.run.LaunchUtils.isWatchFeatureRequired(facet)) {
+                return EnumSet.of(IDevice.HardwareFeature.WATCH);
+            } else {
+                return EnumSet.noneOf(IDevice.HardwareFeature.class);
+            }
+        } catch (Error e) {
             ManifestInfo manifestInfo = ManifestInfo.get(facet.getModule(), true);
             List<UsesFeature> requiredFeatures = Reflect.on(manifestInfo).call("getRequiredFeatures").get();
             return getRequiredHardwareFeatures(requiredFeatures);
-
+        }
     }
 
     // Studio 1.4 and below

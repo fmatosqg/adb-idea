@@ -66,9 +66,53 @@ License
 Build
 =====
 Run <code>./gradlew buildPlugin</code>
-
+It will produce the build/distributions/adb_idea-1.3.0.zip  file.
+Open android studio, and install it from a zip file.
 Details
 -------
 
 Gradle build will employ the intellij gradle plugin https://github.com/JetBrains/gradle-intellij-plugin.
 This plugin will attempt to download a full binary of the intellij idea in order to build its plugin against it.
+
+But what we need is somewhere else. Download Android Studio 2.1 preview 5 from http://tools.android.com/download/studio/canary. Unzip it and find the android.jar file. Then copy it onto the lib/ folder.
+
+Note: on Mac it's available at /Applications/Android Studio beta.app/Contents/plugins/android/lib/android.jar. On linux it's certainly on a similar location.
+
+
+What's this about: git clone git://git.jetbrains.org/idea/android.git --depth 1 --single-branch ????
+
+On compiling Android Studio from source
+=======================================
+
+This is the official page for compiling Android Studio things http://tools.android.com/build. TL;DR, see detailed instructions below.
+
+Get source code
+---------------
+
+Get repo tool
+
+<code>curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo</code>
+
+<code>chmod a+x ~/bin/repo</code>
+
+Use repo tool to download android studio source code in the bleeding edge branch
+
+<code>mkdir studio-master-dev; cd studio-master-dev</code>
+
+<code>repo init -u https://android.googlesource.com/platform/manifest -b studio-master-dev</code>
+
+or to get only the 1.5 version
+
+<code>repo init -u https://android.googlesource.com/platform/manifest -b studio-1.5</code>
+
+
+Download everything in 8 different threads.
+<code>repo sync -j8</code>.
+
+Note that this will take a very long time, and I strongly recomment that you get a steady uninterrupted internet connection and avoid your computer from sleeping until it's finished. I've experienced problems with interrupted git downloads, so it's not a problem with the repo tool.
+
+
+
+
+
+

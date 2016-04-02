@@ -3,6 +3,7 @@ package com.developerphil.adbidea.compatibility;
 import com.android.ddmlib.IDevice;
 import com.android.sdklib.AndroidVersion;
 import com.android.sdklib.IAndroidTarget;
+import com.android.tools.idea.run.AndroidDevice;
 import com.android.tools.idea.run.LaunchCompatibility;
 import org.joor.Reflect;
 
@@ -25,7 +26,8 @@ public class CanRunOnDeviceCompat extends BackwardCompatibleGetter<LaunchCompati
     @Override
     // Android studio 1.5+
     protected LaunchCompatibility getCurrentImplementation() throws Throwable {
-        return getPreviousImplementation();
+        AndroidDevice androidDevice = Reflect.on("com.android.tools.idea.run.ConnectedAndroidDevice").create(device, null).get();
+        return LaunchCompatibility.canRunOnDevice(myMinSdkVersion, myProjectTarget, myRequiredHardwareFeatures, androidDevice, null);
     }
 
     @Override
