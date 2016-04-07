@@ -18,13 +18,13 @@ sourceSets {
 }
 
 intellij {
-   // version 'IC-15.0.5'
+    version 'IC-15.0.5'
     pluginName 'adb_idea'
     plugins 'android'
     updateSinceUntilBuild false
     downloadSources !(System.getenv('CI') ?: 'false')
 
-    plugins 'android'
+    //intellij.alternativeIdePath = '/Users/fmatos/bin/astudio/Android_Studio_preview.app'
 
     publish {
         //username ''
