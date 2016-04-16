@@ -5,7 +5,6 @@ import com.android.ddmlib.IDevice;
 import com.developerphil.adbidea.adb.command.*;
 import com.developerphil.adbidea.ui.DeviceChooserDialog;
 import com.developerphil.adbidea.ui.ModuleChooserDialogHelper;
-import com.developerphil.adbidea.ui.NotificationHelper;
 import com.google.common.collect.Lists;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.intellij.openapi.project.Project;
@@ -101,9 +100,7 @@ public class AdbFacade {
     private static List<AndroidFacet> getApplicationFacets(Project project) {
 
         List<AndroidFacet> facets = Lists.newArrayList();
-        List<AndroidFacet> allFacets =  AndroidUtils.getApplicationFacets(project);
-        NotificationHelper.info("AndroidUtils.getApplicationFacets list size = " + allFacets.size());
-        for (AndroidFacet facet :  allFacets) {
+        for (AndroidFacet facet : AndroidUtils.getApplicationFacets(project)) {
             if (!isTestProject(facet)) {
                 facets.add(facet);
             }

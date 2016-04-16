@@ -7,7 +7,7 @@ plugins {
 apply plugin: 'org.jetbrains.intellij'
 apply plugin: 'java'
 
-sourceCompatibility = 1.8
+sourceCompatibility = 1.7
 
 sourceSets {
     main {
@@ -24,14 +24,12 @@ AndroidStudioPath='/Users/fmatos/bin/astudio/Android Studio_Beta_2.1.app'
 AndroidStudioPath='/Users/fmatos/bin/astudio/Android Studio 2.0.app'
 
 intellij {
-//    version 'IC-15.0.1'
     version 'IC-15.0.5'
 
     pluginName 'adb_idea'
-//    plugins 'android'
     updateSinceUntilBuild false
 
-//    intellij.alternativeIdePath = AndroidStudioPath
+    intellij.alternativeIdePath = AndroidStudioPath
 
 }
 
@@ -45,14 +43,9 @@ dependencies {
 
 }
 
-//configurations {
-//    runtime.exclude(  )
-//}
-
 configurations {
     compile { transitive = false }
     compile.exclude module:'android'
     compile.exclude module:'idea'
-
 }
 
