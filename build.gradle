@@ -8,7 +8,7 @@ plugins {
 apply plugin: 'org.jetbrains.intellij'
 apply plugin: 'java'
 
-sourceCompatibility = 1.6
+sourceCompatibility = 1.8
 
 sourceSets {
     main {
@@ -18,6 +18,11 @@ sourceSets {
         }
     }
 }
+
+// refer to http://tools.android.com/build/studio/idea-tags
+def AndroidStudioPath='/Users/fmatos/bin/astudio_preview_2.1/Android Studio.app'
+AndroidStudioPath='/Users/fmatos/bin/astudio/Android Studio_Beta_2.1.app'
+AndroidStudioPath='/Users/fmatos/bin/astudio/Android Studio 2.0.app'
 
 intellij {
 //    version 'IC-15.0.1'
@@ -30,7 +35,7 @@ intellij {
 
 //    intellij.alternativeIdePath = '/Users/fmatos/bin/astudio/Android_Studio_preview.app'
 
-    intellij.alternativeIdePath = '/Users/fmatos/bin/astudio_preview_2.1/Android Studio.app'
+    intellij.alternativeIdePath = AndroidStudioPath
 
 //    intellij.intellijRepo='asdada'
     publish {
@@ -53,8 +58,8 @@ repositories {
 
 dependencies {
     compile fileTree(dir: 'lib', include: ['*.jar'])
-    compile fileTree(dir: '/Users/fmatos/bin/astudio_preview_2.1/Android Studio.app/Contents/plugins/android/lib', include: ['*.jar'])
-    compile fileTree(dir: '/Users/fmatos/bin/astudio_preview_2.1/Android Studio.app/Contents/lib', include: ['*.jar'])
+    compile fileTree(dir: "$AndroidStudioPath/Contents/plugins/android/lib", include: ['*.jar'])
+    compile fileTree(dir: "$AndroidStudioPath/Contents/lib", include: ['*.jar'])
 
 }
 
