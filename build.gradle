@@ -1,13 +1,10 @@
 
-
 plugins {
-    id "org.jetbrains.intellij" version "0.0.39"
+    id "org.jetbrains.intellij" version "0.0.43"
 }
 
 apply plugin: 'org.jetbrains.intellij'
 apply plugin: 'java'
-
-sourceCompatibility = 1.7
 
 sourceSets {
     main {
@@ -18,13 +15,8 @@ sourceSets {
     }
 }
 
-// refer to http://tools.android.com/build/studio/idea-tags
-def AndroidStudioPath='/Users/fmatos/bin/astudio_preview_2.1/Android Studio.app'
-AndroidStudioPath='/Users/fmatos/bin/astudio/Android Studio_Beta_2.1.app'
-AndroidStudioPath='/Users/fmatos/bin/astudio/Android Studio 2.0.app'
-
 intellij {
-    version 'IC-15.0.5'
+    version 'IC-15.0.5' // this value is not important, as long as you can compile
 
     pluginName 'adb_idea'
     updateSinceUntilBuild false
@@ -34,17 +26,15 @@ intellij {
 }
 
 group 'com.developerphil.intellij.plugin.adbidea'
-
 def majorVersion = '1.3.0-experimental'
 
 dependencies {
-    compileOnly fileTree(dir: "$AndroidStudioPath/Contents/plugins/android/lib", include: ['*.jar'])
-    compileOnly fileTree(dir: "$AndroidStudioPath/Contents/lib", include: ['*.jar'])
+    compileOnly fileTree(dir: "$AndroidStudioPath/plugins/android/lib", include: ['*.jar'])
+    compileOnly fileTree(dir: "$AndroidStudioPath/lib", include: ['*.jar'])
 
 }
 
 configurations {
-    compile { transitive = false }
     compile.exclude module:'android'
     compile.exclude module:'idea'
 }
