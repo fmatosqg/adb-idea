@@ -47,6 +47,24 @@ public class AdbFacade {
         executeOnDevice(project, new ClearDataAndRestartCommand());
     }
 
+    public static void backupData(Project project) {
+        executeOnDevice(project, new BackupDataCommand());
+    }
+
+
+    public static void restoreData(Project project) {
+        executeOnDevice(project, new RestoreDataCommand());
+    }
+
+    public static void pressPower(Project project) {
+        executeOnDevice(project, new PressPowerCommand());
+    }
+
+    public static void toggleInternet(Project project,boolean toggle) {
+        executeOnDevice(project, new ToggleInternet(toggle));
+
+    }
+
     private static void executeOnDevice(final Project project, final Command runnable) {
         final DeviceResult result = getDevice(project);
         if (result != null) {

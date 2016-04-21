@@ -128,6 +128,32 @@
                     text="ADB Clear App Data and Restart"
                     description="Clears the private storage of the app and restarts it">
             </action>
+            <action id="com.developerphil.adbidea.action.BackupData"
+                    class="com.developerphil.adbidea.action.BackupData"
+                    text="ADB Backup App Data"
+                    description="Backs up app">
+            </action>
+            <action id="com.developerphil.adbidea.action.RestoreData"
+                    class="com.developerphil.adbidea.action.RestoreData"
+                    text="ADB Restore App Data"
+                    description="Restores app data from previous backup">
+            </action>
+            <action id="com.developerphil.adbidea.action.PressPower"
+                    class="com.developerphil.adbidea.action.PressPower"
+                    text="ADB Press Power"
+                    description="Presses power button to light up screen (not effective with emulators)">
+            </action>
+            <action id="com.developerphil.adbidea.action.InternetOff"
+                    class="com.developerphil.adbidea.action.InternetOff"
+                    text="ADB Turns off internet"
+                    description="Turns off all internet (not effective with some devices)">
+            </action>
+            <action id="com.developerphil.adbidea.action.InternetOn"
+                    class="com.developerphil.adbidea.action.InternetOn"
+                    text="ADB Turns on internet"
+                    description="Turns on all internet (not effective with some devices)">
+            </action>
+
             <add-to-group group-id="AndroidToolsGroup" anchor="first"/>
         </group>
     </actions>
